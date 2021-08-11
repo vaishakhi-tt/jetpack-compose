@@ -3,8 +3,9 @@ package com.example.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApp {
                 // A surface container using the 'background' color from the theme
-                    Greeting("Android")
+                MyScreenContent()
             }
         }
     }
@@ -29,15 +30,23 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Surface(color = Color.Blue) {
-        Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
+    Text(text = "Hello $name!", modifier = Modifier.padding(20.dp))
+}
+
+@Composable
+fun MyScreenContent(names: List<String> = listOf("world","there")) {
+    Column {
+        for (name in names) {
+            Greeting(name)
+            Divider(color = Color.Black)
+        }
     }
 }
 
 @Composable
-fun MyApp(content: @Composable () -> Unit){
+fun MyApp(content: @Composable () -> Unit) {
     MyApplicationTheme {
-        Surface(color = Color.Magenta){
+        Surface(color = Color.Magenta) {
             content()
         }
     }
@@ -48,6 +57,6 @@ fun MyApp(content: @Composable () -> Unit){
 @Composable
 fun DefaultPreview() {
     MyApp {
-        Greeting("Android")
+        MyScreenContent()
     }
 }
